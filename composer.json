@@ -1,0 +1,28 @@
+{
+    "name": "maenbn/gitlab-ci-build-status",
+    "description": "Simple tool to check latest commit build from GitLab CI",
+    "keywords": ["gitlab", "gitlab ci", "continuous integration", "build status"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ben Norcombe",
+            "email": "b.norcombe@gmail.com"
+        }
+    ],
+    "require": {
+        "php-curl-class/php-curl-class": "4.*"
+
+    },
+    "require-dev": {
+    },
+    "autoload": {
+        "psr-4": {
+            "Maenbn\\GitlabCiBuildStatus\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Maenbn\\Tests\\GitlabCiBuildStatus\\": "tests/"
+        }
+    }
+}
