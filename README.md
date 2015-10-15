@@ -1,4 +1,6 @@
 # gitlab-ci-build-status
+[![build status](https://travis-ci.org/maen-bn/gitlab-ci-build-status.svg?branch=master)](https://travis-ci.org/maen-bn/gitlab-ci-build-status)
+
 Simple tool to check latest commit build from GitLab CI
 
 ## Installation
