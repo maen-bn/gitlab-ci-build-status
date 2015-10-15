@@ -26,7 +26,6 @@ class Client
      */
     protected $status;
 
-
     /**
      * @param $projectUrl
      * @param $projectId
