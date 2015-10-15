@@ -69,6 +69,8 @@ class Client
      */
     protected function setStatus($response, $branch)
     {
+
+        $branchStatuses = [];
         $branchStatuses[$branch] = ['id' => 0, 'status' => ''];
 
         foreach ($response as $oCommits) {
