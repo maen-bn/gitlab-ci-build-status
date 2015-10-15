@@ -42,7 +42,7 @@ class Client
     public function getStatus($branch = 'master')
     {
         $curl = new Curl();
-        $curl->get($this->projectUrl . '/commits', [
+        $curl->get($this->projectUrl . '/api/v1/commits', [
             'project_id' => $this->projectId, 'project_token' => $this->projectCiToken
         ]);
 
