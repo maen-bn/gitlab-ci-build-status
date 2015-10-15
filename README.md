@@ -1,5 +1,8 @@
 # gitlab-ci-build-status
 [![build status](https://travis-ci.org/maen-bn/gitlab-ci-build-status.svg?branch=master)](https://travis-ci.org/maen-bn/gitlab-ci-build-status)
+[![Build Status](https://scrutinizer-ci.com/g/maen-bn/gitlab-ci-build-status/badges/build.png?b=master)](https://scrutinizer-ci.com/g/maen-bn/gitlab-ci-build-status/build-status/master)
+[![Code Coverage](https://scrutinizer-ci.com/g/maen-bn/gitlab-ci-build-status/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/maen-bn/gitlab-ci-build-status/?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/maen-bn/gitlab-ci-build-status/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/maen-bn/gitlab-ci-build-status/?branch=master)
 
 Simple tool to check latest commit build from GitLab CI
 
