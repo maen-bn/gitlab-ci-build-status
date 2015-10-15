@@ -69,21 +69,19 @@ class Client
      */
     protected function setStatus($response, $branch)
     {
-        $branchStatuses = [];
+        $branchStatuses[$branch] = ['id' => 0, 'status' => ''];
 
         foreach ($response as $oCommits) {
             $id = $oCommits->id;
             $commitBranch = $oCommits->ref;
             $status = $oCommits->status;
 
-            if (!isset($branchStatuses[$commitBranch]) ||
-                (isset($branchStatuses[$commitBranch]) && $id > $branchStatuses[$commitBranch]['id'])) {
+            if ($commitBranch == $branch && $id > $branchStatuses[$branch]['id']) {
                 $branchStatuses[$commitBranch] = ['id' => $id, 'status' => $status];
             }
         }
 
-        if (! empty($branchStatuses[$branch]['status'])) {
-            $this->status = $branchStatuses[$branch]['status'];
-        }
+        $this->status = $branchStatuses[$branch]['status'];
     }
+
 }
