@@ -13,4 +13,16 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue(is_string($status));
     }
+
+    /**
+     * @expectedException \Exception
+     * @expectedExceptionMessageRegExp #Error:.*#
+     *
+     */
+    public function testCurlExceptionThrown(){
+
+        $client = new Client('https://somerandomciwhichiswrong.com/ci', 1, 'somerandomwrongtoken');
+        $client->getStatus();
+
+    }
 }
