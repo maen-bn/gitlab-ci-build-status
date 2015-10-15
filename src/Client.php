@@ -22,6 +22,12 @@ class Client
     protected $projectCiToken;
 
     /**
+     * @var string
+     */
+    protected $status;
+
+
+    /**
      * @param $projectUrl
      * @param $projectId
      * @param $projectCiToken
@@ -52,9 +58,9 @@ class Client
 
         $response = $curl->response;
 
-        $branchStatuses = $this->setBranchStatus($response);
+        $this->setStatus($response, $branch);
 
-        return $branchStatuses[$branch]['status'];
+        return $this->status;
     }
 
     /**
@@ -62,25 +68,23 @@ class Client
      *
      * @return array|null
      */
-    protected function setBranchStatus($response)
+    protected function setStatus($response, $branch)
     {
         $branchStatuses = [];
 
         foreach ($response as $oCommits) {
             $id = $oCommits->id;
-            $branch = $oCommits->ref;
+            $commitBranch = $oCommits->ref;
             $status = $oCommits->status;
 
-            if (!isset($branchStatuses[$branch]) ||
-                (isset($branchStatuses[$branch]) && $id > $branchStatuses[$branch]['id'])) {
-                $branchStatuses[$branch] = ['id' => $id, 'status' => $status];
+            if (!isset($branchStatuses[$commitBranch]) ||
+                (isset($branchStatuses[$commitBranch]) && $id > $branchStatuses[$commitBranch]['id'])) {
+                $branchStatuses[$commitBranch] = ['id' => $id, 'status' => $status];
             }
         }
 
-        if (! empty($branchStatuses)) {
-            return $branchStatuses;
+        if (! empty($branchStatuses[$branch]['status'])) {
+            $this->status = $branchStatuses[$branch]['status'];
         }
-
-        return null;
     }
 }
