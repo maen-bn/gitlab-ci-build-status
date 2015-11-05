@@ -75,7 +75,7 @@ class Client
 
         foreach ($response as $oCommits) {
             $id = $oCommits->id;
-            $commitBranch = $oCommits->ref;
+            $commitBranch = $oCommits->builds[0]->ref;
             $status = $oCommits->status;
 
             if ($commitBranch == $branch && $id > $branchStatuses[$branch]['id']) {
