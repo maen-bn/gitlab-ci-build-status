@@ -27,7 +27,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
      */
     public function testCurlExceptionThrown(){
 
-        $client = new Client('https://somerandomciwhichiswrong.com/ci', 1, 'somerandomwrongtoken');
+        $client = new Client('https://gitlab.com/api/v3', 1, 'somerandomwrongtoken');
         $client->getStatus();
 
     }
