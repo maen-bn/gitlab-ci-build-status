@@ -20,7 +20,7 @@ Then run `composer install` or `composer update` to install.
 
 Setting up the client requires your Gitlab CI URL, Gitlab CI project ID, and Gitlab CI project token:
 ```php
-$client = new \Maenbn\GitlabCiBuildStatus\Client('https://gitlab.example.com/ci' 'project_id', 'ci_project_token');
+$client = new \Maenbn\GitlabCiBuildStatus\Client('https://gitlab.example.com/api/v3' 'project_id', 'my_private_token');
 ```
 Then you can grab the status. You can also specify a branch (defaults to master).
 ```php
