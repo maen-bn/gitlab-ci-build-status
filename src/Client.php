@@ -6,36 +6,25 @@ use Curl\Curl;
 
 class Client
 {
-    /**
-     * @var string
-     */
+
     protected $projectUrl;
 
-    /**
-     * @var int
-     */
     protected $projectId;
 
-    /**
-     * @var string
-     */
-    protected $projectCiToken;
+    protected $privateKey;
 
-    /**
-     * @var string
-     */
     protected $status;
 
     /**
      * @param $projectUrl
      * @param $projectId
-     * @param $projectCiToken
+     * @param $privateKey
      */
-    public function __construct($projectUrl, $projectId, $projectCiToken)
+    public function __construct($projectUrl, $projectId, $privateKey)
     {
-        $this->projectId = $projectId;
-        $this->projectCiToken = $projectCiToken;
         $this->projectUrl = $projectUrl;
+        $this->projectId = $projectId;
+        $this->privateKey = $privateKey;
     }
 
     /**
@@ -46,10 +35,12 @@ class Client
      */
     public function getStatus($branch = 'master')
     {
+
+        $sha = $this->getLatestCommitSha($branch);
+
         $curl = new Curl();
-        $curl->get($this->projectUrl . '/api/v1/commits', [
-            'project_id' => $this->projectId, 'project_token' => $this->projectCiToken
-        ]);
+        $curl->get($this->projectUrl . '/projects/' . $this->projectId . '/' .
+            'repository/commits/' . $sha . '/statuses?private_token='. $this->privateKey);
 
         if ($curl->error) {
             throw new \Exception('Error: ' . $curl->errorCode . ': ' . $curl->errorMessage);
@@ -57,7 +48,7 @@ class Client
 
         $response = $curl->response;
 
-        $this->setStatus($response, $branch);
+        $this->setStatus($response);
 
         return $this->status;
     }
@@ -67,23 +58,35 @@ class Client
      *
      * @return array|null
      */
-    protected function setStatus($response, $branch)
+    protected function setStatus($response)
     {
+        $this->status = 'success';
 
-        $branchStatuses = [];
-        $branchStatuses[$branch] = ['id' => 0, 'status' => ''];
-
-        foreach ($response as $oCommits) {
-            $id = $oCommits->id;
-            $commitBranch = $oCommits->builds[0]->ref;
-            $status = $oCommits->status;
-
-            if ($commitBranch == $branch && $id > $branchStatuses[$branch]['id']) {
-                $branchStatuses[$commitBranch] = ['id' => $id, 'status' => $status];
+        foreach($response as $buildStatus) {
+            if($buildStatus->allow_failure === false && $buildStatus->status == 'failed') {
+                $this->status = 'failed';
             }
         }
+    }
 
-        $this->status = $branchStatuses[$branch]['status'];
+    /**
+     * @param $branch
+     * @return mixed
+     * @throws \Exception
+     */
+    protected function getLatestCommitSha($branch)
+    {
+        $curl = new Curl();
+        $curl->get($this->projectUrl . '/projects/' . $this->projectId . '/' .
+            'repository/commits?private_token='. $this->privateKey . '&ref_name=' . $branch);
+
+        if ($curl->error) {
+            throw new \Exception('Error: ' . $curl->errorCode . ': ' . $curl->errorMessage);
+        }
+
+        $response = $curl->response;
+
+        return $response[0]->id;
     }
 
 }

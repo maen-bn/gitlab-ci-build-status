@@ -8,9 +8,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 {
     public function testStatusReturnsString()
     {
-        $client = new Client('https://gitlab.com/ci', 1, '0e6528a230ce89d8a2939080867a22');
+        $client = new Client('https://gitlab.com/api/v3', 1031075, getenv('GITLAB_PRIVATE_KEY'));
         $status = $client->getStatus();
-
         $this->assertTrue(is_string($status));
     }
 

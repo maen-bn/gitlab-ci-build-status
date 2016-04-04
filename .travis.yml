@@ -1,13 +1,13 @@
 language: php
-
 php:
-  - 5.4
-  - 5.5
-  - 5.6
-  - hhvm
-
+- 5.4
+- 5.5
+- 5.6
+- hhvm
 before_script:
-  - composer self-update
-  - composer install --prefer-source --no-interaction --dev
-
+- composer self-update
+- composer install --prefer-source --no-interaction --dev
 script: phpunit
+env:
+  matrix:
+    secure: mHDA0QmxJxOP2qDymCCAmIPuD7CvvMn5a6eR/xAaNjShmGsfPe95XmQVaLVvpwtfCxq0waiyF7O+L71JcrXKzYpmpd74b1tJXrFEDQV6ITGIb/Fc/biITD5aYnXDNwB7sd2YpFx+FudYK3s1uu/B5IxdjKap9o77o9R/u8Ahz9k+mNJCkI+3w6++gf5VyymcaBnff49xQxxqvO2XTACeh4aIzDU6JwK3HJpzkNrpGdhqscdvP0boZ3/8asuX3jROALvSiTKBwEZ9ctCMg7Jiif3Z7d93AiIRGieXZcwpbAbLUWe3BMvH3v7RAVQN61jeY9P1WM0Aznwm3FjrLv4cZEvTFXgXTtusi7ZyfN+q1NyntPPj8ZKcYlFyz7KMoXPN2yxu69qYxBhzxBOrb8qNbkBE9XaOAratYEE6BH8pyKFLcLCu3ExG8brYQTXnTNXSHiOfVLitrQRsY4WD5BDKrM/VDfBDGiZhRNERMYBTlB9xWTpFzyYo/9nx9putQ/6ZrLSVT3bVMpRQEJNf8jfrjyiZqwuQiJDZSkPbmAtEwQkJqgZgSw62yGNq1qMnXY9U5v0L5E63xJFnzeYkjvYhhyz9zKY4R6X6q8gvZv/RJMtTYfKlQvlhzsNQ2fW0ukoRCfJFBxLsqLpELkfY70WY6M0qkI07rnrnnCSydi8q5G0=
